@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unique Code Generator</title>
+  <title>Welcome To EBEE TOOLKIT</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Added CSS for WhatsApp icon */
+    .whatsapp-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px; /* Adjust the size as needed */
+      height: auto; /* Maintain aspect ratio */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -20,51 +30,53 @@
     <button onclick="submitCode()">Submit</button>
   </div>
   <script>
-  function generateUniqueCode() {
-  // Check if a code is already stored in localStorage
-  var storedCode = localStorage.getItem("uniqueCode");
-  
-  // If a code is not stored, generate a new one
-  if (!storedCode) {
-    var newCode = Math.random().toString(36).substr(2, 9);
-    localStorage.setItem("uniqueCode", newCode);
-    return newCode;
-  } else {
-    return storedCode;
-  }
-}
+    function generateUniqueCode() {
+      // Check if a code is already stored in localStorage
+      var storedCode = localStorage.getItem("uniqueCode");
+      
+      // If a code is not stored, generate a new one
+      if (!storedCode) {
+        var newCode = Math.random().toString(36).substr(2, 9);
+        localStorage.setItem("uniqueCode", newCode);
+        return newCode;
+      } else {
+        return storedCode;
+      }
+    }
 
-function copyCode() {
-  var generatedCode = document.getElementById("generatedCode").textContent;
-  navigator.clipboard.writeText(generatedCode).then(function() {
-    alert("Code copied to clipboard.");
-  }, function(err) {
-    console.error('Could not copy text: ', err);
-  });
-}
+    function copyCode() {
+      var generatedCode = document.getElementById("generatedCode").textContent;
+      navigator.clipboard.writeText(generatedCode).then(function() {
+        alert("Code copied to clipboard.");
+      }, function(err) {
+        console.error('Could not copy text: ', err);
+      });
+    }
 
-function submitCode() {
-  var storedCode = localStorage.getItem("uniqueCode");
-  if (storedCode === null) {
-    alert("No code generated. Please refresh the page.");
-    return;
-  }
-  
-  var validCodes = ["ac3fyfc46", "rw7dhyb5q", "cf6tn9w3j", "aaabi9ygo", "qksliirga"];
-  
-  // Check if the stored code is in the valid codes array
-  if (validCodes.includes(storedCode)) {
-    // Redirect user if the code is found
-    window.location.href = "tool.html?code=" + storedCode;
-  } else {
-    // Show activation message if the code is not found
-    document.getElementById("activationMessage").style.display = "block";
-  }
-}
+    function submitCode() {
+      var storedCode = localStorage.getItem("uniqueCode");
+      if (storedCode === null) {
+        alert("No code generated. Please refresh the page.");
+        return;
+      }
+      
+      var validCodes = ["ac3fyfc46", "rw7dhyb5q", "cf6tn9w3j", "aaabi9ygo", "qksliirga", "rsxo7tkv4"];
+      
+      // Check if the stored code is in the valid codes array
+      if (validCodes.includes(storedCode)) {
+        // Redirect user if the code is found
+        window.location.href = "tool.html?code=" + storedCode;
+      } else {
+        // Show activation message if the code is not found
+        document.getElementById("activationMessage").style.display = "block";
+      }
+    }
 
-// On page load, generate a unique code or retrieve the stored one
-document.getElementById("generatedCode").textContent = generateUniqueCode();
+    // On page load, generate a unique code or retrieve the stored one
+    document.getElementById("generatedCode").textContent = generateUniqueCode();
   </script>
   <p><b>For Activation Contact Here:<br>+923256069667</b></p>
+  <!-- Adjust the size and position as needed -->
+  <a href="wa.link/c5wpgu"><img src="whatsAppers.png" alt="WhatsApp" class="whatsapp-icon"></a>
 </body>
 </html>
