@@ -1,49 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Login Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unique Code Generator</title>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="login-container">
-        <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="button" onclick="validateCredentials()">Submit</button>
-        </form>
+  <div class="container">
+    <h1>Unique Code Generator</h1>
+    <div id="generator">
+      <p>Your unique code:</p>
+      <span id="generatedCode"></span>
+      <button onclick="copyCode()">Copy</button>
     </div>
-  <script> 
-     function validateCredentials() {
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-
-    // Updated validation logic
-    const credentialsList = [
-        { username: 'ebeebhai', password: '12345' },
-        { username: 'ebee', password: '111' },
-        { username: 'bhai', password: '111' }
-        
-    ];
-
-    const isValidCredentials = credentialsList.some(cred => cred.username === username && cred.password === password);
-
-    if (isValidCredentials) {
-        // Redirect to tool.html on successful login
-        window.location.href = 'tool.html';
-    } else {
-        alert('Incorrect username or password. Please try again.');
-        // Clear input fields on incorrect login attempt
-        usernameInput.value = '';
-        passwordInput.value = '';
-    }
+    <div id="activationMessage" style="display:none;">
+      <p>Please activate your code.</p>
+    </div>
+    <button onclick="submitCode()">Submit</button>
+  </div>
+  <script>
+  function generateUniqueCode() {
+  // Check if a code is already stored in localStorage
+  var storedCode = localStorage.getItem("uniqueCode");
+  
+  // If a code is not stored, generate a new one
+  if (!storedCode) {
+    var newCode = Math.random().toString(36).substr(2, 9);
+    localStorage.setItem("uniqueCode", newCode);
+    return newCode;
+  } else {
+    return storedCode;
+  }
 }
+
+function copyCode() {
+  var generatedCode = document.getElementById("generatedCode").textContent;
+  navigator.clipboard.writeText(generatedCode).then(function() {
+    alert("Code copied to clipboard.");
+  }, function(err) {
+    console.error('Could not copy text: ', err);
+  });
+}
+
+function submitCode() {
+  var storedCode = localStorage.getItem("uniqueCode");
+  if (storedCode === null) {
+    alert("No code generated. Please refresh the page.");
+    return;
+  }
+  
+  var validCodes = ["vwrcic6ij", "examplecode2", "examplecode3", "examplecode4", "examplecode5"];
+  
+  // Check if the stored code is in the valid codes array
+  if (validCodes.includes(storedCode)) {
+    // Redirect user if the code is found
+    window.location.href = "tool.html?code=" + storedCode;
+  } else {
+    // Show activation message if the code is not found
+    document.getElementById("activationMessage").style.display = "block";
+  }
+}
+
+// On page load, generate a unique code or retrieve the stored one
+document.getElementById("generatedCode").textContent = generateUniqueCode();
   </script>
 </body>
 </html>
