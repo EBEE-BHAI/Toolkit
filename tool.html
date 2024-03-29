@@ -14,6 +14,17 @@
     <input type="text" id="toolSearch" placeholder="Search tools...">
 </div>
 
+<div class="eid-timer-container">
+    <div class="eid-timer-box">
+        <div id="countdown">
+            <p>Time Left Until Eid Ul Fitr</p>
+            <div id="timer"></div>
+            <p>Your Eidi Awaits!</p>
+            <p>Written By ATOM CYBER FORCE</p>
+        </div>
+    </div>
+</div>
+
 <div class="tool-options-container">
     <div class="tool-option" data-url="https://rb.gy/j56472" onclick="redirectToUrl(this)">
         <img src="shopify.jpeg" alt="Shopify Icon">
@@ -255,9 +266,31 @@
         <img src="bomb.png" alt="Example Icon">
         <span>SMS Bomber</span>
     </div>
+  
 </div>
-
+ 
 <script>
+    // Countdown timer
+    var countDownDate = new Date("April 10, 2024 00:00:00").getTime();
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+
     function redirectToUrl(element) {
         const url = element.getAttribute("data-url");
         window.location.href = url;
@@ -267,4 +300,4 @@
 <p>We Are Not Responsible For Any<br>Type Of Wrong Use Of Any Tool Use On Your Own Risk</p>
 
 </body>
-</html>
+            </html>
